@@ -24,6 +24,9 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+  .flexx {
+    @apply flex justify-center;
+  }
 }
 
 @layer base {
