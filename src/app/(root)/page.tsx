@@ -4,17 +4,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Video, Users, Calendar, Star, VideoIcon } from "lucide-react";
+import Hero from "@/components/custom/Hero";
+import { section } from "framer-motion/client";
 
 export default function Home() {
   return (
     // <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
     <div className="flex flex-col min-h-screen w-full bg-gray-50">
       <div className=" min-h-screen  bg-gray-100 font-poppins  ">
-        <header className="w-full py-4 px-4 sm:px-6 lg:px-8 bg-white shadow-sm">
+        <header className="w-full  py-4 px-4 sm:px-6 lg:px-8 bg-white shadow-sm">
           <div className="container mx-auto flex justify-between items-center  font-poppins text-lg">
-            <Link className="flex items-center  flex-1  " href="#">
-              <VideoIcon className="h-6 w-6 text-blue-600" />
-              <span className="ml-2 text-2xl font-bold text-gray-900">
+            <Link className="flex items-center  flex-1  " href="/">
+              <VideoIcon className=" w-6 h-6 text-blue-600" />
+              <span className="ml-2 text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% max-sm:text-lg">
                 GuidanceConnect
               </span>
             </Link>
@@ -43,35 +45,33 @@ export default function Home() {
               </Link>
             </nav>
             <div className="space-x-4 flex-1 text-right">
-              <Button>Login</Button>
-              <Button>Register</Button>
+              <Button className="bg-gradient-to-r from-cyan-500 to-blue-500  max-sm:text-xs ">
+                Login
+              </Button>
+              <Button className="bg-gradient-to-r from-cyan-500 to-blue-500 max-sm:text-xs">
+                Register
+              </Button>
             </div>
           </div>
         </header>
 
         <main className="">
-          <section className="w-full z-10 transparent relative lg:h-screen py-12  md:py-24  lg:py-32 xl:py-48 flex justify-center ">
-            <div className="absolute -z-10 inset-0 overflow-hidden pointer-events-none bg-gray-50">
-              <div className="absolute inset-0 opacity-30">
-                <div className="absolute top-0 left-0 w-full h-full">
-                  <div className="absolute w-60 h-60 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full mix-blend-multiply filter  opacity-70 animate-floatA"></div>
-                  <div className="absolute top-[10rem] right-0 w-96 h-96 bg-gradient-to-br from-pink-700 to-red-700 rounded-full mix-blend-multiply filter  opacity-70 animate-floatB animation-delay-2000"></div>
-                </div>
-                <div className="absolute inset-0 bg-grid-indigo-100/[0.03] bg-[size:20px_20px]"></div>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80"></div>
-            </div>
+          <section className=" lg:h-screen flex justify-center relative  ">
+            <Hero></Hero>
             {/* <Image
-                className="absolute bottom-20 -z-5 animate-flyDiagonal left-0 "
-                src={"/images/rocket.png"}
-                height={80}
-                width={80}
-                alt={""}
-              ></Image> */}
+              className="absolute bottom-20  hidden xl:block -z-5 animate-flyDiagonal  left-0 "
+              src={"/images/rocket.png"}
+              height={80}
+              width={80}
+              alt={""}
+            ></Image> */}
+          </section>
+
+          <section className="w-full z-10  relative lg:h-screen py-12  md:py-24  lg:py-32 xl:py-48 flex justify-center ">
             <div className="container z-10 lg:mt-[10rem] px-4 md:px-6">
               <div className="flex flex-col items-center space-y-4 text-center">
                 <div className="space-y-2">
-                  <h1 className="text-3xl text-black font-bold tracking-tighter sm:text-4xl  md:text-5xl lg:text-6xl/none">
+                  <h1 className="text-3xl text-black font-bold tracking-tighter sm:text-4xl  md:text-5xl lg:text-6xl/none font-spaceGrotesk">
                     Connect with Experienced Mentors
                   </h1>
                   <p className="mx-auto max-w-[700px] text-gray-600 md:text-xl">
@@ -132,6 +132,7 @@ export default function Home() {
               </div>
             </div>
           </section>
+
           <section
             className="w-full flexx py-12 md:py-24 lg:py-32 bg-gray-100"
             id="how-it-works"

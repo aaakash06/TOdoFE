@@ -86,9 +86,11 @@ const config: Config = {
         },
         flyDiagonal: {
           "0%": { transform: "translate(0, 0) rotate(0deg)", opacity: "0" },
+          "50%": { opacity: "0.7" },
+
           "100%": {
-            transform: "translate(100vw, -100vh) rotate(45deg)",
-            opacity: "0.7",
+            transform: "translate(90vw, -90vh) rotate(45deg)",
+            opacity: "0",
           },
         },
         "accordion-up": {
