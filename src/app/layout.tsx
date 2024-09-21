@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk, Poppins } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/custom/Header";
+import Footer from "@/components/custom/Footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,7 +35,10 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${spaceGrotesk.variable}  ${poppins.variable} antialiased`}
       >
+        <Header></Header>
         {children}
+
+        <Footer></Footer>
       </body>
     </html>
   );

@@ -10,52 +10,9 @@ import { section } from "framer-motion/client";
 export default function Home() {
   return (
     // <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-    <div className="flex flex-col min-h-screen w-full bg-gray-50">
+    <div className="flex flex-col w-full bg-gray-50">
       <div className=" min-h-screen  bg-gray-100 font-poppins  ">
-        <header className="w-full  py-4 px-4 sm:px-6 lg:px-8 bg-white shadow-sm">
-          <div className="container mx-auto flex justify-between items-center  font-poppins text-lg">
-            <Link className="flex items-center  flex-1  " href="/">
-              <VideoIcon className=" w-6 h-6 text-blue-600" />
-              <span className="ml-2 text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% max-sm:text-lg">
-                GuidanceConnect
-              </span>
-            </Link>
-
-            <nav className="hidden lg:flex justify-center   space-x-4 ">
-              <Link href="#about" className="text-gray-600 hover:text-gray-900">
-                About
-              </Link>
-              <Link
-                href="#bootcamps"
-                className="text-gray-600 hover:text-gray-900"
-              >
-                Bootcamps
-              </Link>
-              <Link
-                href="#benefits"
-                className="text-gray-600 hover:text-gray-900"
-              >
-                Benefits
-              </Link>
-              <Link
-                href="#contact"
-                className="text-gray-600 hover:text-gray-900"
-              >
-                Contact
-              </Link>
-            </nav>
-            <div className="space-x-4 flex-1 text-right">
-              <Button className="bg-gradient-to-r from-cyan-500 to-blue-500  max-sm:text-xs ">
-                Login
-              </Button>
-              <Button className="bg-gradient-to-r from-cyan-500 to-blue-500 max-sm:text-xs">
-                Register
-              </Button>
-            </div>
-          </div>
-        </header>
-
-        <main className="">
+        <main>
           <section className=" lg:h-screen flex justify-center relative  ">
             <Hero></Hero>
             {/* <Image
@@ -211,7 +168,7 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="w-full flexx py-12 md:py-24 lg:py-32 bg-blue-600">
+          <section className="w-full flexx py-12  md:py-24 lg:py-32 bg-blue-600">
             <div className="container px-4 md:px-6">
               <div className="flex flex-col items-center space-y-4 text-center">
                 <div className="space-y-2">
@@ -242,27 +199,7 @@ export default function Home() {
             </div>
           </section>
         </main>
-        <footer className="flex text-black  mt-3 flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6  border-t">
-          <p className="text-md text-gray-500">
-            © 2023 GuidanceConnect. All rights reserved.
-          </p>
-          <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-            <Link
-              className="text-sm  hover:underline underline-offset-4"
-              href="#"
-            >
-              Terms of Service
-            </Link>
-            <Link
-              className="text-sm hover:underline underline-offset-4"
-              href="#"
-            >
-              Privacy
-            </Link>
-          </nav>
-        </footer>
       </div>
-      //{" "}
     </div>
   );
 }
