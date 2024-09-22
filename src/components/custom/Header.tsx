@@ -41,7 +41,9 @@ const Header = () => {
           </div>
         </SignedOut>
         <SignedIn>
-          <UserButton />
+          <div className="space-x-4  flex-1 text-right">
+            <UserButton />
+          </div>
         </SignedIn>
       </div>
     </header>
