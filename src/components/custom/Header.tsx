@@ -3,6 +3,7 @@ import { VideoIcon } from "lucide-react";
 import React from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 const Header = () => {
   return (
@@ -29,14 +30,19 @@ const Header = () => {
             Contact
           </Link>
         </nav>
-        <div className="space-x-4 flex-1 text-right">
-          <Button className="bg-gradient-to-r from-cyan-500 to-blue-500  max-sm:text-xs ">
-            Login
-          </Button>
-          <Button className="bg-gradient-to-r from-cyan-500 to-blue-500 max-sm:text-xs">
-            Register
-          </Button>
-        </div>
+        <SignedOut>
+          <div className="space-x-4  flex-1 text-right">
+            <Button className="bg-gradient-to-r from-cyan-500 to-blue-500  max-sm:text-xs ">
+              <Link href="/sign-in">Login</Link>
+            </Button>
+            <Button className="bg-gradient-to-r from-cyan-500 to-blue-500 max-sm:text-xs">
+              <Link href="/sign-up">Register</Link>
+            </Button>
+          </div>
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
       </div>
     </header>
   );
