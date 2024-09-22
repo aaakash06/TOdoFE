@@ -16,6 +16,34 @@ export interface IUser extends mongoose.Document {
   joinAt: Date;
 }
 
+// Define an interface for Schedule
+interface ISchedule extends Document {
+  facilitatorId: ObjectIdType;
+  availableSlots: {
+    startTime: Date;
+    endTime: Date;
+    isBooked: boolean;
+  }[];
+}
+
+// Define an interface for Meeting
+interface IMeeting extends Document {
+  studentId: ObjectIdType;
+  facilitatorId: ObjectIdType;
+  date: Date;
+  duration: number;
+  status: "scheduled" | "completed" | "cancelled";
+  rating?: ObjectId;
+}
+
+interface IRating extends Document {
+  studentId: ObjectIdType;
+  facilitatorId: ObjectIdType;
+  rate: number;
+  type: "profile" | "meeting";
+  meetingId: ObjectIdType;
+}
+
 const userSchema = new mongoose.Schema<IUser>(
   {
     name: { type: String, required: true },
@@ -40,16 +68,6 @@ const userSchema = new mongoose.Schema<IUser>(
   { timestamps: true }
 );
 
-// Define an interface for Meeting
-interface IMeeting extends Document {
-  studentId: ObjectIdType;
-  facilitatorId: ObjectIdType;
-  date: Date;
-  duration: number;
-  status: "scheduled" | "completed" | "cancelled";
-  rating?: ObjectId;
-}
-
 // Meeting Schema
 const MeetingSchema = new Schema<IMeeting>(
   {
@@ -67,20 +85,6 @@ const MeetingSchema = new Schema<IMeeting>(
   { timestamps: true }
 );
 
-export const Meeting =
-  mongoose.models.Meeting || mongoose.model<IMeeting>("Meeting", MeetingSchema);
-
-export const User =
-  mongoose.models.User || mongoose.model<IUser>("User", userSchema);
-
-interface IRating extends Document {
-  studentId: ObjectIdType;
-  facilitatorId: ObjectIdType;
-  rate: number;
-  type: "profile" | "meeting";
-  meetingId: ObjectIdType;
-}
-
 const RatingSchema = new mongoose.Schema<IRating>(
   {
     studentId: { type: Schema.Types.ObjectId, ref: "User", required: true },
@@ -91,19 +95,6 @@ const RatingSchema = new mongoose.Schema<IRating>(
   },
   { timestamps: true }
 );
-
-export const Rating =
-  mongoose.models.Rating || mongoose.model<IRating>("Rating", RatingSchema);
-
-// Define an interface for Schedule
-interface ISchedule extends Document {
-  facilitatorId: ObjectIdType;
-  availableSlots: {
-    startTime: Date;
-    endTime: Date;
-    isBooked: boolean;
-  }[];
-}
 
 // Schedule Schema
 const ScheduleSchema = new Schema<ISchedule>(
@@ -119,5 +110,14 @@ const ScheduleSchema = new Schema<ISchedule>(
   },
   { timestamps: true }
 );
+
+export const Meeting =
+  mongoose.models.Meeting || mongoose.model<IMeeting>("Meeting", MeetingSchema);
+
+export const User =
+  mongoose.models.User || mongoose.model<IUser>("User", userSchema);
+
+export const Rating =
+  mongoose.models.Rating || mongoose.model<IRating>("Rating", RatingSchema);
 
 export const Schedule = model<ISchedule>("Schedule", ScheduleSchema);
