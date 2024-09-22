@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/custom/Header";
 import Footer from "@/components/custom/Footer";
 import { ClerkProvider } from "@clerk/nextjs";
+import NextTopLoader from "nextjs-toploader";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -37,6 +38,7 @@ export default function RootLayout({
         <body
           className={`${inter.variable} ${spaceGrotesk.variable}  ${poppins.variable} antialiased`}
         >
+          <NextTopLoader></NextTopLoader>
           {children}
         </body>
       </html>
