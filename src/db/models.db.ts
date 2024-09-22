@@ -120,4 +120,5 @@ export const User =
 export const Rating =
   mongoose.models.Rating || mongoose.model<IRating>("Rating", RatingSchema);
 
-export const Schedule = model<ISchedule>("Schedule", ScheduleSchema);
+export const Schedule =
+  mongoose.models.Schedule || model<ISchedule>("Schedule", ScheduleSchema);
