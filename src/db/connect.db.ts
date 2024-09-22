@@ -11,9 +11,7 @@ export async function connectToDB() {
       // console.log("already connected to db");
     } else {
       // console.log("connecting to db....");
-
       await connect(CS, { dbName: "guidance-connect" });
-
       // console.log("mongo connected");
     }
   } catch (err) {

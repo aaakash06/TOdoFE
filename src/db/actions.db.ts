@@ -11,9 +11,6 @@ interface CreateUserClerkType {
 export async function createUserByClerk(user: CreateUserClerkType) {
   try {
     await connectToDB();
-
-    console.log(user);
-
     const mongoUser = await User.create(user);
     return mongoUser;
   } catch (err) {
