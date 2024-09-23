@@ -17,6 +17,7 @@ const cards = [
 
 export default async function Role() {
   const { userId } = auth();
+  // not required; already route included in middleware
   if (!userId) {
     redirect("/sign-in");
   }
@@ -24,7 +25,7 @@ export default async function Role() {
   const userRole = await getRoleByClerkId(userId);
 
   if (userRole !== "null") {
-    return;
+    redirect("/");
   }
   const setrole = async (userId: string, role: string) => {
     "use server";
