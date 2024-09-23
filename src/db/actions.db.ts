@@ -13,7 +13,7 @@ export async function createUserByClerk(user: CreateUserClerkType) {
     await connectToDB();
     const newUser = {
       ...user,
-      role: "student",
+      role: "null",
     };
 
     const mongoUser = await User.create(newUser);
@@ -92,4 +92,9 @@ export const setRole = async (id: string, role: string) => {
     console.log("error occured during fetching user by clerkId ");
     console.log(err);
   }
+};
+
+export const getRoleByClerkId = async (clerkId: string) => {
+  const user = await User.findOne({ clerkId });
+  return user.role;
 };

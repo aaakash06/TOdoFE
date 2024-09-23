@@ -7,7 +7,7 @@ export interface IUser extends mongoose.Document {
   clerkId: string;
   email: string;
   password?: string;
-  role: "student" | "teacher";
+  role: "student" | "teacher" | "null";
   bio?: string;
   picture?: string;
   specializations?: string[];
@@ -55,7 +55,7 @@ const userSchema = new mongoose.Schema<IUser>(
     role: {
       type: String,
       required: true,
-      enum: ["student", "facilitator"],
+      enum: ["student", "facilitator", "null"],
     },
     bio: { type: String },
     picture: { type: String },

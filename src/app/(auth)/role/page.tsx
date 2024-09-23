@@ -1,6 +1,7 @@
 import { FocusCards } from "@/components/ui/focus-cards";
 
-import { setRole } from "@/db/actions.db";
+import { getRoleByClerkId, setRole } from "@/db/actions.db";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 const cards = [
@@ -14,7 +15,17 @@ const cards = [
   },
 ];
 
-export default function Role() {
+export default async function Role() {
+  const { userId } = auth();
+  if (!userId) {
+    redirect("/sign-in");
+  }
+
+  const userRole = await getRoleByClerkId(userId);
+
+  if (userRole !== "null") {
+    return;
+  }
   const setrole = async (userId: string, role: string) => {
     "use server";
     await setRole(
