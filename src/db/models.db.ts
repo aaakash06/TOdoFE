@@ -1,9 +1,10 @@
-import mongoose, { Schema, Document, ObjectId, Types, model } from "mongoose";
+import mongoose, { Schema, Document, ObjectId } from "mongoose";
 export type ObjectIdType = mongoose.Schema.Types.ObjectId;
 
 export interface IUser extends mongoose.Document {
   name: string;
   username: string;
+  clerkId: string;
   email: string;
   password?: string;
   role: "student" | "teacher";
@@ -49,6 +50,7 @@ const userSchema = new mongoose.Schema<IUser>(
     name: { type: String, required: true },
     username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
+    clerkId: { type: String, required: true },
     password: { type: String },
     role: {
       type: String,
@@ -71,8 +73,8 @@ const userSchema = new mongoose.Schema<IUser>(
 // Meeting Schema
 const MeetingSchema = new Schema<IMeeting>(
   {
-    studentId: { type: Types.ObjectId, ref: "User", required: true },
-    facilitatorId: { type: Types.ObjectId, ref: "User", required: true },
+    studentId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    facilitatorId: { type: Schema.Types.ObjectId, ref: "User", required: true },
     date: { type: Date, required: true },
     duration: { type: Number, required: true },
     status: {
@@ -80,7 +82,7 @@ const MeetingSchema = new Schema<IMeeting>(
       enum: ["scheduled", "completed", "cancelled"],
       default: "scheduled",
     },
-    rating: { type: Types.ObjectId, ref: "Rating" },
+    rating: { type: Schema.Types.ObjectId, ref: "Rating" },
   },
   { timestamps: true }
 );
@@ -99,7 +101,7 @@ const RatingSchema = new mongoose.Schema<IRating>(
 // Schedule Schema
 const ScheduleSchema = new Schema<ISchedule>(
   {
-    facilitatorId: { type: Types.ObjectId, ref: "User", required: true },
+    facilitatorId: { type: Schema.Types.ObjectId, ref: "User", required: true },
     availableSlots: [
       {
         startTime: { type: Date, required: true },
@@ -121,4 +123,5 @@ export const Rating =
   mongoose.models.Rating || mongoose.model<IRating>("Rating", RatingSchema);
 
 export const Schedule =
-  mongoose.models.Schedule || model<ISchedule>("Schedule", ScheduleSchema);
+  mongoose.models.Schedule ||
+  mongoose.model<ISchedule>("Schedule", ScheduleSchema);

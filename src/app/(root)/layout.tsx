@@ -1,14 +1,22 @@
 import Header from "@/components/custom/Header";
 import Footer from "@/components/custom/Footer";
+import { getUserByClerkId } from "@/db/actions.db";
+import { auth } from "@clerk/nextjs/server";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { userId } = auth();
+  let userRole: null | string = null;
+  if (userId) {
+    const user = await getUserByClerkId(userId);
+    userRole = user.role;
+  }
   return (
     <>
-      <Header></Header>
+      <Header role={userRole}></Header>
       {children}
       <Footer></Footer>
     </>

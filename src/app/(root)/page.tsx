@@ -3,52 +3,18 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { Video, Users, Calendar, Star, VideoIcon } from "lucide-react";
+import { Video, Users, Calendar, Star } from "lucide-react";
 import Hero from "@/components/custom/Hero";
-import { section } from "framer-motion/client";
 
-export default function Home() {
+export default async function Home() {
   return (
-    // <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
     <div className="flex flex-col w-full bg-gray-50">
       <div className=" min-h-screen  bg-gray-100 font-poppins  ">
         <main>
           <section className=" lg:h-screen flex justify-center relative  ">
             <Hero></Hero>
-            {/* <Image
-              className="absolute bottom-20  hidden xl:block -z-5 animate-flyDiagonal  left-0 "
-              src={"/images/rocket.png"}
-              height={80}
-              width={80}
-              alt={""}
-            ></Image> */}
           </section>
 
-          {/* <section className="w-full  z-10  relative lg:h-screen py-12  md:py-24  lg:py-32 xl:py-48 flex justify-center ">
-            <div className="container z-10 lg:mt-[10rem] px-4 md:px-6">
-              <div className="flex flex-col items-center space-y-4 text-center">
-                <div className="space-y-2">
-                  <h1 className="text-3xl text-black font-bold tracking-tighter sm:text-4xl  md:text-5xl lg:text-6xl/none font-spaceGrotesk">
-                    Connect with Experienced Mentors
-                  </h1>
-                  <p className="mx-auto max-w-[700px] text-gray-600 md:text-xl">
-                    GuidanceConnect helps students and guidance seekers connect
-                    with domain experts and seniors.
-                  </p>
-                </div>
-                <div className="w-full max-w-sm space-y-2">
-                  <form className="flex space-x-2">
-                    <Input
-                      className="max-w-lg flex-1 text-black"
-                      placeholder="Enter your email"
-                      type="email"
-                    />
-                    <Button type="submit">Get Started</Button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </section> */}
           <section
             className="w-full py-12 flex justify-center md:py-24 lg:py-32 bg-white"
             id="features"

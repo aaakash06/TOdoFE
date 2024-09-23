@@ -15,6 +15,7 @@ export async function createUserByClerk(user: CreateUserClerkType) {
       ...user,
       role: "student",
     };
+    console.log(newUser);
     const mongoUser = await User.create(newUser);
     console.log(mongoUser);
     return mongoUser;
@@ -57,6 +58,38 @@ export const deleteUserByClerkId = async (id: string) => {
     return user;
   } catch (err) {
     console.log("error occured during fetching user and deleting by id ");
+    console.log(err);
+  }
+};
+export const getUserByClerkId = async (id: string) => {
+  try {
+    connectToDB();
+    const user = await User.findOne({ clerkId: id });
+    if (!user) {
+      console.log("no user found with give clerk Id");
+      return "no user found with give clerk Id";
+    }
+    return user;
+  } catch (err) {
+    console.log("error occured during fetching user by clerkId ");
+    console.log(err);
+  }
+};
+export const setRole = async (id: string, role: string) => {
+  try {
+    connectToDB();
+    const user = await User.findOneAndUpdate(
+      { clerkId: id },
+      { role },
+      { new: true }
+    );
+    if (!user) {
+      console.log("no user found with give clerk Id");
+      return "no user found with give clerk Id";
+    }
+    return user;
+  } catch (err) {
+    console.log("error occured during fetching user by clerkId ");
     console.log(err);
   }
 };
