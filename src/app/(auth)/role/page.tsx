@@ -17,7 +17,10 @@ const cards = [
 export default function Role() {
   const setrole = async (userId: string, role: string) => {
     "use server";
-    await setRole(userId, role);
+    await setRole(
+      userId,
+      role.includes("provider") ? "facilitator" : "student"
+    );
     redirect("/");
   };
   return (
