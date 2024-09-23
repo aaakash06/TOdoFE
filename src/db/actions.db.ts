@@ -47,10 +47,10 @@ export async function updateUserByClerk(
 }
 
 export const deleteUserByClerkId = async (id: string) => {
-  console.log("delete user called");
   try {
     connectToDB();
     const user = await User.findOneAndDelete({ clerkId: id });
+
     if (!user) {
       console.log("no user found to delete in db");
       return "no user found to delete in db";
