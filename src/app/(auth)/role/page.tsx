@@ -1,6 +1,7 @@
 import { FocusCards } from "@/components/ui/focus-cards";
 
 import { setRole } from "@/db/actions.db";
+import { redirect } from "next/navigation";
 
 const cards = [
   {
@@ -17,6 +18,7 @@ export default function Role() {
   const setrole = async (userId: string, role: string) => {
     "use server";
     await setRole(userId, role);
+    redirect("/");
   };
   return (
     <section className="w-screen bg-light-700  pt-40 h-screen flex flex-col gap-10">

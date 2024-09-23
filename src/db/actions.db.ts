@@ -15,9 +15,8 @@ export async function createUserByClerk(user: CreateUserClerkType) {
       ...user,
       role: "student",
     };
-    console.log(newUser);
+
     const mongoUser = await User.create(newUser);
-    console.log(mongoUser);
     return mongoUser;
   } catch (err) {
     console.log("couldn't create user in the database with clerkId");
@@ -48,6 +47,7 @@ export async function updateUserByClerk(
 }
 
 export const deleteUserByClerkId = async (id: string) => {
+  console.log("delete user called");
   try {
     connectToDB();
     const user = await User.findOneAndDelete({ clerkId: id });
