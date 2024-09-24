@@ -14,7 +14,7 @@ export default async function RootLayout({
   if (userId) {
     const user = await getUserByClerkId(userId);
     userRole = user.role;
-    if (userRole == "null") await redirectTo("/role");
+    if (userRole == "null") await redirectTo("/");
   }
   return (
     <>
