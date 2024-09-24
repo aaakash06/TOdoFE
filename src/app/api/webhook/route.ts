@@ -78,7 +78,7 @@ export async function POST(req: Request) {
     };
 
     const mongoUser = await createUserByClerk(newUser);
-
+    NextResponse.redirect("/role");
     if (mongoUser) {
       return NextResponse.json({ status: "ok", user: mongoUser });
     }
