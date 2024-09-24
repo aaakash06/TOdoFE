@@ -11,15 +11,15 @@ const isPublicRoute = createRouteMatcher([
   "role",
 ]);
 
-const isRole = async () => {
-  "use server";
-  const { userId } = Auth();
-  console.log(userId);
-  // const userRole = await getRoleByClerkId(userId!);
-  // if (userRole == "null") {
-  //   redirect("/role");
-  // }
-};
+// const isRole = async () => {
+//   "use server";
+//   const { userId } = Auth();
+//   console.log(userId);
+//   const userRole = await getRoleByClerkId(userId!);
+//   if (userRole == "null") {
+//     redirect("/role");
+//   }
+// };
 
 export default clerkMiddleware(async (auth, request) => {
   if (!isPublicRoute(request)) {

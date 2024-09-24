@@ -2,10 +2,10 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
-import { deleteUserByClerkId, setRole } from "@/db/actions.db";
-import { auth } from "@clerk/nextjs/server";
-import { useClerk, useUser } from "@clerk/nextjs";
-import { UserRoundSearch } from "lucide-react";
+import { setRole } from "@/db/actions.db";
+import { useUser } from "@clerk/nextjs";
+
+import { useRouter } from "next/navigation";
 
 export const Card = React.memo(
   ({
@@ -14,19 +14,23 @@ export const Card = React.memo(
     hovered,
     setHovered,
     userId,
-    setrole,
   }: {
     card: any;
     index: number;
     hovered: number | null;
     userId: string;
     setHovered: React.Dispatch<React.SetStateAction<number | null>>;
-    setrole: (userId: string, role: string) => void;
   }) => {
+    const { user } = useUser();
+    const router = useRouter();
     return (
       <div
-        onClick={() => {
-          setrole(userId, card.title);
+        onClick={async () => {
+          await setRole(
+            userId,
+            card.title.includes("provider") ? "facilitator" : "student"
+          );
+          router.push("/");
         }}
         onMouseEnter={() => setHovered(index)}
         onMouseLeave={() => setHovered(null)}
@@ -63,13 +67,7 @@ type Card = {
   src: string;
 };
 
-export function FocusCards({
-  cards,
-  setrole,
-}: {
-  cards: Card[];
-  setrole: (userId: string, role: string) => void;
-}) {
+export function FocusCards({ cards }: { cards: Card[] }) {
   const [hovered, setHovered] = useState<number | null>(null);
   const { user } = useUser();
 
@@ -83,7 +81,6 @@ export function FocusCards({
           hovered={hovered}
           setHovered={setHovered}
           userId={user?.id!}
-          setrole={setrole}
         />
       ))}
     </div>

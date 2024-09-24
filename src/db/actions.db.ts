@@ -79,6 +79,7 @@ export const getUserByClerkId = async (id: string) => {
 export const setRole = async (id: string, role: string) => {
   try {
     connectToDB();
+
     const user = await User.findOneAndUpdate(
       { clerkId: id },
       { role },
@@ -88,7 +89,8 @@ export const setRole = async (id: string, role: string) => {
       console.log("no user found with give clerk Id");
       return "no user found with give clerk Id";
     }
-    return user;
+    // ----------error while return the raw object --------//
+    // return user;
   } catch (err) {
     console.log("error occured during fetching user by clerkId ");
     console.log(err);
@@ -96,9 +98,18 @@ export const setRole = async (id: string, role: string) => {
 };
 
 export const getRoleByClerkId = async (clerkId: string) => {
-  console.log("getRole was called");
-  const user = await User.findOne({ clerkId });
-  console.log("the user to find the role of");
-  console.log(user);
-  return user.role;
+  try {
+    console.log("getRole was called");
+    const user = await User.findOne({ clerkId });
+    if (!user) {
+      console.log("no user with this clerkId could be found");
+      return;
+    }
+    console.log("the user to find the role of");
+    // console.log(user);
+    console.log(user.role);
+    return user.role;
+  } catch (e) {
+    console.log("error occured during getRole");
+  }
 };

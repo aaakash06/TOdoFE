@@ -1,6 +1,6 @@
 import { FocusCards } from "@/components/ui/focus-cards";
 
-import { getRoleByClerkId, setRole } from "@/db/actions.db";
+import { getRoleByClerkId } from "@/db/actions.db";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
@@ -27,21 +27,14 @@ export default async function Role() {
   if (userRole !== "null") {
     redirect("/");
   }
-  const setrole = async (userId: string, role: string) => {
-    "use server";
-    await setRole(
-      userId,
-      role.includes("provider") ? "facilitator" : "student"
-    );
-    redirect("/");
-  };
+
   return (
     <section className="w-screen bg-light-700  pt-40 h-screen flex flex-col gap-10">
       <h1 className="text-black text-center text-3xl font-spaceGrotesk font-extrabold">
         Pick Your Role
       </h1>
 
-      <FocusCards cards={cards} setrole={setrole} />
+      <FocusCards cards={cards} />
     </section>
   );
 }
