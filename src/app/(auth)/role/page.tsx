@@ -17,8 +17,11 @@ const cards = [
 
 export default async function Role() {
   const { userId } = auth();
-
-  const userRole = await getRoleByClerkId(userId!);
+  if (!userId) {
+    // could also use middleware
+    return;
+  }
+  const userRole = await getRoleByClerkId(userId);
 
   if (userRole !== "null") {
     redirect("/");
