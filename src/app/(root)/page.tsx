@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Video, Users, Calendar, Star } from "lucide-react";
 import Hero from "@/components/custom/Hero";
+import { redirectTo } from "@/db/actions.db";
 
 export default async function Home() {
   return (

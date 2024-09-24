@@ -7,6 +7,7 @@ import {
   updateUserByClerk,
   deleteUserByClerkId,
 } from "@/db/actions.db";
+import console from "console";
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
@@ -60,6 +61,10 @@ export async function POST(req: Request) {
   // For this guide, you simply log the payload to the console
   const { id } = evt.data;
   const eventType = evt.type;
+
+  if (evt.type === "user.created") {
+    console.log("userId:", evt.data.id);
+  }
   if (eventType == "user.created") {
     const { username, email_addresses, first_name, last_name, image_url, id } =
       evt.data;
@@ -72,9 +77,9 @@ export async function POST(req: Request) {
       picture: image_url,
     };
 
-    await createUserByClerk(newUser);
-    /// find a way to return users to check if success or not
-    return NextResponse.json({ status: "ok" });
+    const mongoUser = await createUserByClerk(newUser);
+    if (mongoUser) return NextResponse.json({ status: "ok", user: mongoUser });
+    return NextResponse.json({ status: "error" });
   }
   if (eventType == "user.updated") {
     const { username, email_addresses, first_name, last_name, image_url, id } =

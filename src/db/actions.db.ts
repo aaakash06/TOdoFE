@@ -11,6 +11,10 @@ interface CreateUserClerkType {
   email: string;
   picture: string;
 }
+export async function redirectTo(path: string) {
+  redirect(path);
+}
+
 export async function createUserByClerk(user: CreateUserClerkType) {
   try {
     await connectToDB();
@@ -19,11 +23,10 @@ export async function createUserByClerk(user: CreateUserClerkType) {
       role: "null",
     };
     const mongoUser = await User.create(newUser);
-    redirect("/role");
-    //----------------------------find a way to both redirect and return
-    // return mongoUser;
+    console.log("user created");
+    return mongoUser;
   } catch (err) {
-    console.log("couldn't create user in the database with clerkId");
+    console.log("erro; createUserByClerk");
     console.log(err);
   }
 }
@@ -45,7 +48,7 @@ export async function updateUserByClerk(
     });
     return mongoUser;
   } catch (err) {
-    console.log("couldn't create user in the database with clerkId");
+    console.log(" error occured; updateUserByClerk");
     console.log(err);
   }
 }
@@ -54,14 +57,14 @@ export const deleteUserByClerkId = async (id: string) => {
   try {
     connectToDB();
     const user = await User.findOneAndDelete({ clerkId: id });
-
     if (!user) {
       console.log("no user found to delete in db");
       return "no user found to delete in db";
     }
+    console.log("user deleted");
     return user;
   } catch (err) {
-    console.log("error occured during fetching user and deleting by id ");
+    console.log("error; deletebyclerk");
     console.log(err);
   }
 };
@@ -75,7 +78,7 @@ export const getUserByClerkId = async (id: string) => {
     }
     return user;
   } catch (err) {
-    console.log("error occured during fetching user by clerkId ");
+    console.log("error; getUserbyclerk ");
     console.log(err);
   }
 };
@@ -95,7 +98,7 @@ export const setRole = async (id: string, role: string) => {
     // ----------error while return the raw object --------//
     // return user;
   } catch (err) {
-    console.log("error occured during fetching user by clerkId ");
+    console.log("error ; setRole");
     console.log(err);
   }
 };
@@ -112,15 +115,6 @@ export const getRoleByClerkId = async (clerkId: string) => {
     console.log(user.role);
     return user.role;
   } catch (e) {
-    console.log("error occured during getRole");
+    console.log("error; getRole");
   }
 };
-
-export async function RoleCheck() {
-  const { userId } = auth();
-
-  const userRole = await getRoleByClerkId(userId!);
-  if (userRole === "null") {
-    redirect("/role");
-  }
-}

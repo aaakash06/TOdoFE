@@ -1,6 +1,6 @@
 import Header from "@/components/custom/Header";
 import Footer from "@/components/custom/Footer";
-import { getUserByClerkId } from "@/db/actions.db";
+import { getUserByClerkId, redirectTo } from "@/db/actions.db";
 import { auth } from "@clerk/nextjs/server";
 import ResponsiveSidebar from "@/components/custom/MobileNav";
 
@@ -14,6 +14,7 @@ export default async function RootLayout({
   if (userId) {
     const user = await getUserByClerkId(userId);
     userRole = user.role;
+    if (userRole == "null") await redirectTo("/role");
   }
   return (
     <>
