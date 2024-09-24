@@ -98,6 +98,7 @@ export const setRole = async (id: string, role: string) => {
       });
       setRole(id, role);
     }
+    return;
     // ----------error while return the raw object --------//
     // return user;
   } catch (err) {
