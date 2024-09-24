@@ -8,9 +8,10 @@ export default async function Main() {
   if (!userId) {
     return <Home />;
   }
+
   const userRole = await getRoleByClerkId(userId);
   if (userRole == "null") {
-    <RolePage />;
+    return <RolePage />;
   }
   return <Home />;
 }
