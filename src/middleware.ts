@@ -1,4 +1,7 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { auth as Auth } from "@clerk/nextjs/server";
+import { getRoleByClerkId } from "./db/actions.db";
+import { redirect } from "next/navigation";
 
 const isPublicRoute = createRouteMatcher([
   "/sign-in(.*)",
@@ -8,10 +11,21 @@ const isPublicRoute = createRouteMatcher([
   "role",
 ]);
 
-export default clerkMiddleware((auth, request) => {
+const isRole = async () => {
+  "use server";
+  const { userId } = Auth();
+  console.log(userId);
+  // const userRole = await getRoleByClerkId(userId!);
+  // if (userRole == "null") {
+  //   redirect("/role");
+  // }
+};
+
+export default clerkMiddleware(async (auth, request) => {
   if (!isPublicRoute(request)) {
     auth().protect();
   }
+  // isRole();
 });
 
 export const config = {
