@@ -3,19 +3,27 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
-import { MenuIcon, Newspaper, BadgePlus, LogIn, LogOut } from "lucide-react";
+import {
+  MenuIcon,
+  Newspaper,
+  BadgePlus,
+  LogIn,
+  LogOut,
+  AlignCenterHorizontal,
+  CalendarCheck,
+} from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
 const menuItemsS = [
-  { icon: Newspaper, label: "Blog", href: "/" },
-  { icon: BadgePlus, label: "Create", href: "/" },
-  { icon: LogIn, label: "Login", href: "/" },
+  { icon: Newspaper, label: "Dashboard", href: "/" },
+  { icon: BadgePlus, label: "Browse", href: "/" },
+  { icon: AlignCenterHorizontal, label: "Resources", href: "/" },
 ];
 const menuItemsF = [
   { icon: Newspaper, label: "Dashboard", href: "/" },
-  { icon: BadgePlus, label: "Browse", href: "/" },
-  { icon: LogIn, label: "Resources", href: "/" },
+  { icon: BadgePlus, label: "Profile", href: "/" },
+  { icon: CalendarCheck, label: "Schedule", href: "/" },
 ];
 
 const menuItemsOut = [

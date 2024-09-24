@@ -96,5 +96,7 @@ export const setRole = async (id: string, role: string) => {
 
 export const getRoleByClerkId = async (clerkId: string) => {
   const user = await User.findOne({ clerkId });
+  console.log("the user to find the role of");
+  console.log(user);
   return user.role;
 };
