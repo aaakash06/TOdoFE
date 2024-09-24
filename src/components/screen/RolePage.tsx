@@ -15,18 +15,7 @@ const cards = [
   },
 ];
 
-export default async function Role() {
-  const { userId } = auth();
-  if (!userId) {
-    // could also use middleware
-    return;
-  }
-  const userRole = await getRoleByClerkId(userId);
-
-  if (userRole !== "null") {
-    redirect("/");
-  }
-
+export default function RolePage() {
   return (
     <section className="w-screen bg-light-700  pt-40 h-screen flex flex-col gap-10">
       <h1 className="text-black text-center text-3xl font-spaceGrotesk font-extrabold">
