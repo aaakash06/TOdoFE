@@ -7,13 +7,13 @@ import {
   updateUserByClerk,
   deleteUserByClerkId,
 } from "@/db/actions.db";
+import { redirect } from "next/navigation";
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
   console.log("========webhook hit===========");
   // const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
-  const WEBHOOK_SECRET =
-    process.env.WEBHOOK_SECRET || "whsec_Qg5EcGbXCK6FsU1L+04R0t70DyRDZue8";
+  const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
   console.log("the webhook secret is: ", WEBHOOK_SECRET);
   if (!WEBHOOK_SECRET) {
     throw new Error(
@@ -78,7 +78,10 @@ export async function POST(req: Request) {
     };
 
     const mongoUser = await createUserByClerk(newUser);
-    if (mongoUser) return NextResponse.json({ status: "ok", user: mongoUser });
+
+    if (mongoUser) {
+      return NextResponse.json({ status: "ok", user: mongoUser });
+    }
     return NextResponse.json({ status: "error" });
   }
   if (eventType == "user.updated") {

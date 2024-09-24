@@ -1,6 +1,8 @@
 "use server";
+import { redirect } from "next/navigation";
 import { connectToDB } from "./connect.db";
 import { User } from "./models.db";
+import { auth } from "@clerk/nextjs/server";
 
 interface CreateUserClerkType {
   clerkId: string;
@@ -16,8 +18,8 @@ export async function createUserByClerk(user: CreateUserClerkType) {
       ...user,
       role: "null",
     };
-
     const mongoUser = await User.create(newUser);
+    // await redirect("/role");
     return mongoUser;
   } catch (err) {
     console.log("couldn't create user in the database with clerkId");
@@ -105,7 +107,6 @@ export const getRoleByClerkId = async (clerkId: string) => {
       console.log("no user with this clerkId could be found");
       return;
     }
-    console.log("the user to find the role of");
     // console.log(user);
     console.log(user.role);
     return user.role;
@@ -113,3 +114,12 @@ export const getRoleByClerkId = async (clerkId: string) => {
     console.log("error occured during getRole");
   }
 };
+
+export async function RoleCheck() {
+  const { userId } = auth();
+
+  const userRole = await getRoleByClerkId(userId!);
+  if (userRole === "null") {
+    redirect("/role");
+  }
+}

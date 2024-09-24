@@ -39,38 +39,44 @@ export default function ResponsiveSidebar({ role }: { role: string | null }) {
       <nav className="flex flex-col space-y-2">
         {role == "facilitator"
           ? menuItemsF.map((item, index) => (
-              <Button
-                key={index}
-                onClick={closeSidebar}
-                variant="ghost"
-                className="justify-start"
-              >
-                <item.icon className="mr-2 h-4 w-4" />
-                <Link href={item.href}>{item.label}</Link>
-              </Button>
+              <Link href={item.href} key={index} className=" h-full w-full">
+                <Button
+                  key={index}
+                  onClick={closeSidebar}
+                  variant="ghost"
+                  className="justify-start w-full"
+                >
+                  <item.icon className="mr-2 h-4 w-4" />
+                  {item.label}
+                </Button>
+              </Link>
             ))
           : menuItemsS.map((item, index) => (
-              <Button
-                key={index}
-                onClick={closeSidebar}
-                variant="ghost"
-                className="justify-start"
-              >
-                <item.icon className="mr-2 h-4 w-4" />
-                <Link href={item.href}>{item.label}</Link>
-              </Button>
+              <Link href={item.href} key={index} className=" h-full w-full">
+                <Button
+                  key={index}
+                  onClick={closeSidebar}
+                  variant="ghost"
+                  className="justify-start w-full"
+                >
+                  <item.icon className="mr-2 h-4 w-4" />
+                  {item.label}
+                </Button>
+              </Link>
             ))}
         {!role &&
           menuItemsOut.map((item, index) => (
-            <Button
-              key={index}
-              onClick={closeSidebar}
-              variant="ghost"
-              className="justify-start"
-            >
-              <item.icon className="mr-2 h-4 w-4" />
-              <Link href={item.href}>{item.label}</Link>
-            </Button>
+            <Link href={item.href} key={index} className=" h-full w-full">
+              <Button
+                key={index}
+                onClick={closeSidebar}
+                variant="ghost"
+                className="justify-start w-full"
+              >
+                <item.icon className="mr-2 h-4 w-4" />
+                {item.label}
+              </Button>
+            </Link>
           ))}
       </nav>
     </ScrollArea>
