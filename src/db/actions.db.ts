@@ -19,8 +19,9 @@ export async function createUserByClerk(user: CreateUserClerkType) {
       role: "null",
     };
     const mongoUser = await User.create(newUser);
-    // await redirect("/role");
-    return mongoUser;
+    redirect("/role");
+    //----------------------------find a way to both redirect and return
+    // return mongoUser;
   } catch (err) {
     console.log("couldn't create user in the database with clerkId");
     console.log(err);
