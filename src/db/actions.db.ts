@@ -93,7 +93,10 @@ export const setRole = async (id: string, role: string) => {
     );
     if (!user) {
       console.log("no user found with give clerk Id");
-      return "no user found with give clerk Id";
+      await new Promise((r) => {
+        setTimeout(r, 3000);
+      });
+      setRole(id, role);
     }
     // ----------error while return the raw object --------//
     // return user;
