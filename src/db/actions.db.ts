@@ -1,3 +1,4 @@
+"use server";
 import { connectToDB } from "./connect.db";
 import { User } from "./models.db";
 
