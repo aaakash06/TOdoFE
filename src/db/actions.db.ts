@@ -108,8 +108,8 @@ export const getRoleByClerkId = async (clerkId: string) => {
     console.log("getRole was called");
     const user = await User.findOne({ clerkId });
     if (!user) {
-      console.log("no user with this clerkId could be found");
-      return;
+      // may be due to slow mongodb crud
+      return "null";
     }
     // console.log(user);
     console.log(user.role);
