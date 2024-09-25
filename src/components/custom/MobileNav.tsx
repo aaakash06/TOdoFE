@@ -34,7 +34,7 @@ export default function ResponsiveSidebar() {
   const { userRole: role } = useRole();
   const { user } = useUser();
   const menuItemsF = [
-    { icon: Newspaper, label: "Dashboard", href: "/" },
+    { icon: Newspaper, label: "Dashboard", href: "/dashboard" },
     {
       icon: BadgePlus,
       label: "Profile",

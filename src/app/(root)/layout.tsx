@@ -23,7 +23,7 @@ export default async function RootLayout({
       <ResponsiveSidebar></ResponsiveSidebar>
       <Header></Header>
       {children}
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
     </RoleContextProvider>
   );
 }
