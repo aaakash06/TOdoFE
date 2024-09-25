@@ -2,8 +2,6 @@
 import { redirect } from "next/navigation";
 import { connectToDB } from "./connect.db";
 import { User } from "./models.db";
-import { auth } from "@clerk/nextjs/server";
-
 interface CreateUserClerkType {
   clerkId: string;
   name: string;
@@ -55,7 +53,7 @@ export async function updateUserByClerk(
 
 export const deleteUserByClerkId = async (id: string) => {
   try {
-    connectToDB();
+    await connectToDB();
     const user = await User.findOneAndDelete({ clerkId: id });
     if (!user) {
       console.log("no user found to delete in db");
@@ -70,7 +68,7 @@ export const deleteUserByClerkId = async (id: string) => {
 };
 export const getUserByClerkId = async (id: string) => {
   try {
-    connectToDB();
+    await connectToDB();
     const user = await User.findOne({ clerkId: id });
     if (!user) {
       console.log("no user found with give clerk Id");
@@ -84,7 +82,7 @@ export const getUserByClerkId = async (id: string) => {
 };
 export const setRole = async (id: string, role: string) => {
   try {
-    connectToDB();
+    await connectToDB();
 
     const user = await User.findOneAndUpdate(
       { clerkId: id },
@@ -109,16 +107,16 @@ export const setRole = async (id: string, role: string) => {
 
 export const getRoleByClerkId = async (clerkId: string) => {
   try {
-    console.log("getRole was called");
+    await connectToDB();
+    // console.log("getRole was called");
     const user = await User.findOne({ clerkId });
     if (!user) {
       // may be due to slow mongodb crud
       return "null";
     }
-    // console.log(user);
-    console.log(user.role);
     return user.role;
   } catch (e) {
     console.log("error; getRole");
+    // console.log(e);
   }
 };

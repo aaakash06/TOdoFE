@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useRole } from "@/context/RoleProvider";
+import { SignedOut } from "@clerk/nextjs";
 
 import {
   MenuIcon,
@@ -36,6 +37,7 @@ const menuItemsOut = [
 
 export default function ResponsiveSidebar() {
   const { userRole: role } = useRole();
+
   const SidebarContent = () => (
     <ScrollArea className="h-full py-6 pl-6 pr-6 xl:pr-0">
       <h2 className="mb-4 text-lg font-semibold">Menu</h2>
@@ -67,8 +69,8 @@ export default function ResponsiveSidebar() {
                 </Button>
               </Link>
             ))}
-        {!role &&
-          menuItemsOut.map((item, index) => (
+        <SignedOut>
+          {menuItemsOut.map((item, index) => (
             <Link href={item.href} key={index} className=" h-full w-full">
               <Button
                 key={index}
@@ -81,6 +83,7 @@ export default function ResponsiveSidebar() {
               </Button>
             </Link>
           ))}
+        </SignedOut>
       </nav>
     </ScrollArea>
   );

@@ -14,7 +14,6 @@ export default async function RootLayout({
   let userRole: null | string = null;
   if (userId) {
     const role = await getRoleByClerkId(userId);
-    console.log("called from layout");
     userRole = role;
   }
   return (

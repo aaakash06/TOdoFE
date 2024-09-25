@@ -8,6 +8,7 @@ const CS = connectionString?.replace("<password>", password);
 export async function connectToDB() {
   try {
     if (mongoose.connection.readyState === 1) {
+      return;
       // console.log("already connected to db");
     } else {
       // console.log("connecting to db....");
