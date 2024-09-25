@@ -3,14 +3,9 @@ import { BadgePlus, CalendarCheck, Newspaper, VideoIcon } from "lucide-react";
 import React from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
 import { useRole } from "@/context/RoleProvider";
 
-const menuItemsF = [
-  { label: "Dashboard", href: "/" },
-  { label: "Profile", href: "/" },
-  { label: "Schedule", href: "/schedule" },
-];
 const menuItemsS = [
   { label: "Dashboard", href: "/" },
   { label: "Browse", href: "/" },
@@ -19,7 +14,13 @@ const menuItemsS = [
 ];
 
 const Header = () => {
+  const { user } = useUser();
   const { userRole: role } = useRole();
+  const menuItemsF = [
+    { label: "Dashboard", href: "/" },
+    { label: "Profile", href: `/profile-facilitator/${user?.id}` },
+    { label: "Schedule", href: "/schedule" },
+  ];
   return (
     <header className="w-full  py-4 px-4 sm:px-6 lg:px-8 bg-white shadow-sm ">
       <div className=" mx-auto flex justify-between items-center relative font-poppins text-lg max-xl:justify-center ">
