@@ -1,9 +1,10 @@
 import Header from "@/components/custom/Header";
 import Footer from "@/components/custom/Footer";
-import { getRoleByClerkId } from "@/db/actions.db";
+import { getRoleByClerkId, getUserByClerkId } from "@/db/actions.db";
 import { auth } from "@clerk/nextjs/server";
 import ResponsiveSidebar from "@/components/custom/MobileNav";
 import { RoleContextProvider } from "@/context/RoleProvider";
+import { IUser } from "@/db/models.db";
 
 export default async function RootLayout({
   children,
@@ -12,12 +13,13 @@ export default async function RootLayout({
 }>) {
   const { userId } = auth();
   let userRole: null | string = null;
+  let user: IUser | null = null;
   if (userId) {
-    const role = await getRoleByClerkId(userId);
-    userRole = role;
+    user = await getUserByClerkId(userId);
+    userRole = user!.role;
   }
   return (
-    <RoleContextProvider userRole={userRole}>
+    <RoleContextProvider userRole={userRole} user={JSON.stringify(user)}>
       <ResponsiveSidebar></ResponsiveSidebar>
       <Header></Header>
       {children}

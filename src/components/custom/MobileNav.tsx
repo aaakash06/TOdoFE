@@ -2,8 +2,8 @@
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useRole } from "@/context/RoleProvider";
-import { SignedOut } from "@clerk/nextjs";
+import { useRole, useUserDB } from "@/context/RoleProvider";
+import { SignedOut, useUser } from "@clerk/nextjs";
 
 import {
   MenuIcon,
@@ -23,11 +23,6 @@ const menuItemsS = [
   { icon: CalendarCheck, label: "Upcomings", href: "/schedule" },
   { icon: AlignCenterHorizontal, label: "Resources", href: "/" },
 ];
-const menuItemsF = [
-  { icon: Newspaper, label: "Dashboard", href: "/" },
-  { icon: BadgePlus, label: "Profile", href: "/" },
-  { icon: CalendarCheck, label: "Schedule", href: "/schedule" },
-];
 
 const menuItemsOut = [
   { icon: LogIn, label: "Login", href: "/sign-in" },
@@ -37,6 +32,16 @@ const menuItemsOut = [
 
 export default function ResponsiveSidebar() {
   const { userRole: role } = useRole();
+  const { user } = useUser();
+  const menuItemsF = [
+    { icon: Newspaper, label: "Dashboard", href: "/" },
+    {
+      icon: BadgePlus,
+      label: "Profile",
+      href: `/profile-facilitator/${user?.id}`,
+    },
+    { icon: CalendarCheck, label: "Schedule", href: "/schedule" },
+  ];
 
   const SidebarContent = () => (
     <ScrollArea className="h-full py-6 pl-6 pr-6 xl:pr-0">

@@ -17,7 +17,13 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar } from "@/components/ui/calendar";
 import { Progress } from "@/components/ui/progress";
 
-export default function FacilitatorProfile() {
+export default function FacilitatorProfile({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const { id: clerkId } = params;
+
   const facilitator = {
     name: "Dr. Emily Chen",
     image: "https://i.pravatar.cc/300?img=47",
