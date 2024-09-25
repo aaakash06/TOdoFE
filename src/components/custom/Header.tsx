@@ -1,11 +1,25 @@
 "use client";
-import { VideoIcon } from "lucide-react";
+import { BadgePlus, CalendarCheck, Newspaper, VideoIcon } from "lucide-react";
 import React from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { useRole } from "@/context/RoleProvider";
 
-const Header = ({ role }: { role: string | null }) => {
+const menuItemsF = [
+  { label: "Dashboard", href: "/" },
+  { label: "Profile", href: "/" },
+  { label: "Schedule", href: "/schedule" },
+];
+const menuItemsS = [
+  { label: "Dashboard", href: "/" },
+  { label: "Browse", href: "/" },
+  { label: "Upcomings", href: "/" },
+  { label: "Resources", href: "/" },
+];
+
+const Header = () => {
+  const { userRole: role } = useRole();
   return (
     <header className="w-full  py-4 px-4 sm:px-6 lg:px-8 bg-white shadow-sm ">
       <div className=" mx-auto flex justify-between items-center relative font-poppins text-lg max-xl:justify-center ">
@@ -17,45 +31,25 @@ const Header = ({ role }: { role: string | null }) => {
         </Link>
 
         <nav className="hidden xl:flex justify-center flex-1  gap-20 ">
-          {role == "facilitator" ? (
-            <>
-              {" "}
-              <Link href="#about" className="text-gray-600 hover:text-gray-900">
-                Dashboard
-              </Link>
-              <Link
-                href="#contact"
-                className="text-gray-600 hover:text-gray-900"
-              >
-                Profile
-              </Link>
-              <Link
-                href="#contact"
-                className="text-gray-600 hover:text-gray-900"
-              >
-                Schedule
-              </Link>
-            </>
-          ) : (
-            <>
-              {" "}
-              <Link href="#about" className="text-gray-600 hover:text-gray-900">
-                Dashboard
-              </Link>
-              <Link
-                href="#contact"
-                className="text-gray-600 hover:text-gray-900"
-              >
-                Browse
-              </Link>
-              <Link
-                href="#contact"
-                className="text-gray-600 hover:text-gray-900"
-              >
-                Resources
-              </Link>
-            </>
-          )}
+          {role == "facilitator"
+            ? menuItemsF.map((item, index) => (
+                <Link
+                  key={index}
+                  href={item.href}
+                  className="text-gray-600 hover:text-gray-900"
+                >
+                  {item.label}
+                </Link>
+              ))
+            : menuItemsF.map((item, index) => (
+                <Link
+                  key={index}
+                  href={item.href}
+                  className="text-gray-600 hover:text-gray-900"
+                >
+                  {item.label}
+                </Link>
+              ))}
         </nav>
         <SignedOut>
           <div className="space-x-4  max-xl:hidden xl:flex-1 text-right ">

@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useRole } from "@/context/RoleProvider";
 
 import {
   MenuIcon,
@@ -18,12 +19,13 @@ import { useState } from "react";
 const menuItemsS = [
   { icon: Newspaper, label: "Dashboard", href: "/" },
   { icon: BadgePlus, label: "Browse", href: "/" },
+  { icon: CalendarCheck, label: "Upcomings", href: "/schedule" },
   { icon: AlignCenterHorizontal, label: "Resources", href: "/" },
 ];
 const menuItemsF = [
   { icon: Newspaper, label: "Dashboard", href: "/" },
   { icon: BadgePlus, label: "Profile", href: "/" },
-  { icon: CalendarCheck, label: "Schedule", href: "/" },
+  { icon: CalendarCheck, label: "Schedule", href: "/schedule" },
 ];
 
 const menuItemsOut = [
@@ -32,7 +34,8 @@ const menuItemsOut = [
   { icon: LogOut, label: "Register", href: "/sign-up" },
 ];
 
-export default function ResponsiveSidebar({ role }: { role: string | null }) {
+export default function ResponsiveSidebar() {
+  const { userRole: role } = useRole();
   const SidebarContent = () => (
     <ScrollArea className="h-full py-6 pl-6 pr-6 xl:pr-0">
       <h2 className="mb-4 text-lg font-semibold">Menu</h2>

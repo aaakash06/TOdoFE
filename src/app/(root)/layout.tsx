@@ -1,8 +1,9 @@
 import Header from "@/components/custom/Header";
 import Footer from "@/components/custom/Footer";
-import { getUserByClerkId, redirectTo } from "@/db/actions.db";
+import { getRoleByClerkId } from "@/db/actions.db";
 import { auth } from "@clerk/nextjs/server";
 import ResponsiveSidebar from "@/components/custom/MobileNav";
+import { RoleContextProvider } from "@/context/RoleProvider";
 
 export default async function RootLayout({
   children,
@@ -12,15 +13,16 @@ export default async function RootLayout({
   const { userId } = auth();
   let userRole: null | string = null;
   if (userId) {
-    const user = await getUserByClerkId(userId);
-    userRole = user.role;
+    const role = await getRoleByClerkId(userId);
+    console.log("called from layout");
+    userRole = role;
   }
   return (
-    <>
-      <ResponsiveSidebar role={userRole}></ResponsiveSidebar>
-      <Header role={userRole}></Header>
+    <RoleContextProvider userRole={userRole}>
+      <ResponsiveSidebar></ResponsiveSidebar>
+      <Header></Header>
       {children}
       <Footer></Footer>
-    </>
+    </RoleContextProvider>
   );
 }
