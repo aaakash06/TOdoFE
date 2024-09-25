@@ -10,7 +10,7 @@ export interface IUser extends mongoose.Document {
   role: "student" | "teacher" | "null";
   bio?: string;
   picture?: string;
-  specializations?: string[];
+  specializations: string[];
   ratings?: ObjectIdType[];
   rating?: Number;
   // comments?: ObjectIdType[];
@@ -59,7 +59,7 @@ const userSchema = new mongoose.Schema<IUser>(
     },
     bio: { type: String },
     picture: { type: String },
-    specializations: { type: [String] },
+    specializations: { type: [String], default: [] },
     ratings: {
       type: [{ type: Schema.Types.ObjectId, ref: "Rating" }],
       default: [],

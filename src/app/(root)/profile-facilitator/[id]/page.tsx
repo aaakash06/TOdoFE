@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import {
   Calendar as CalendarIcon,
@@ -16,14 +15,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar } from "@/components/ui/calendar";
 import { Progress } from "@/components/ui/progress";
-
-export default function FacilitatorProfile({
+import { getUserByClerkId } from "@/db/actions.db";
+import { IUser } from "@/db/models.db";
+export default async function FacilitatorProfile({
   params,
 }: {
   params: { id: string };
 }) {
   const { id: clerkId } = params;
-
+  const user: IUser = await getUserByClerkId(clerkId);
   const facilitator = {
     name: "Dr. Emily Chen",
     image: "https://i.pravatar.cc/300?img=47",
@@ -86,38 +86,42 @@ export default function FacilitatorProfile({
     overallRating: 4.8,
   };
 
-  const [date, setDate] = React.useState<Date | undefined>(new Date());
+  // const [date, setDate] = React.useState<Date | undefined>(new Date());
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       {/* Header Section */}
       <div className="mb-8 flex flex-col md:flex-row items-center md:items-start gap-6">
         <Avatar className="w-32 h-32">
-          <AvatarImage src={facilitator.image} alt={facilitator.name} />
+          <AvatarImage src={user.picture} alt={facilitator.name} />
           <AvatarFallback>
-            {facilitator.name
+            {user.name
               .split(" ")
               .map((n) => n[0])
               .join("")}
           </AvatarFallback>
         </Avatar>
         <div className="text-center md:text-left">
-          <h1 className="text-3xl font-bold mb-2 text-gray-800">
-            {facilitator.name}
-          </h1>
-          <p className="text-gray-600 mb-4">{facilitator.bio}</p>
+          <h1 className="text-3xl font-bold mb-2 text-gray-800">{user.name}</h1>
+          <p className="text-gray-600 mb-4">{user.bio ?? facilitator.bio}</p>
           <div className="flex flex-wrap justify-center md:justify-start gap-2">
-            {facilitator.expertise.map((tag, index) => (
-              <Badge key={index} variant="secondary">
-                {tag}
-              </Badge>
-            ))}
+            {user.specializations.length > 0
+              ? user.specializations.map((tag, index) => (
+                  <Badge key={index} variant="secondary">
+                    {tag}
+                  </Badge>
+                ))
+              : facilitator.expertise.map((tag, index) => (
+                  <Badge key={index} variant="secondary">
+                    {tag}
+                  </Badge>
+                ))}
           </div>
         </div>
       </div>
 
       {/* Skills and Expertise */}
-      <section className="mb-8">
+      {/* <section className="mb-8">
         <h2 className="text-2xl font-semibold mb-4 text-gray-700">
           Skills and Expertise
         </h2>
@@ -131,7 +135,7 @@ export default function FacilitatorProfile({
             </Card>
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* Accomplishments */}
       <section className="mb-8">
@@ -149,7 +153,7 @@ export default function FacilitatorProfile({
       </section>
 
       {/* Availability Calendar */}
-      <section className="mb-8">
+      {/* <section className="mb-8">
         <h2 className="text-2xl font-semibold mb-4 text-gray-700">
           Availability
         </h2>
@@ -177,7 +181,7 @@ export default function FacilitatorProfile({
             </CardContent>
           </Card>
         </div>
-      </section>
+      </section> */}
 
       {/* Webinars */}
       <section className="mb-8">
