@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
@@ -52,81 +52,70 @@ const earningsData = [
 
 export default function FacilitatorDashboard() {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
-  const [sidebarWidth, setSidebarWidth] = useState(256); // Initial width in pixels
+  const [sidebarWidth, setSidebarWidth] = useState(256);
   const [isDragging, setIsDragging] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
 
-  const handleMouseDown = useCallback(() => {
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const getMaxWidth = useCallback(() => {
+    if (windowWidth >= 1024 && windowWidth <= 1450) {
+      return 325;
+    }
+
+    else if (windowWidth <=910 && windowWidth >=800) {
+      return 400
+    }
+    
+    else if (windowWidth < 800 && windowWidth >=724) {
+      return 350
+    }
+    else if (windowWidth <724) {
+      return 200
+    } 
+    return 500;
+  }, [windowWidth]);
+
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent default selection behavior
     setIsDragging(true);
+    document.body.style.userSelect = 'none'; // Disable text selection
   }, []);
 
   const handleMouseUp = useCallback(() => {
     setIsDragging(false);
+    document.body.style.userSelect = ''; // Re-enable text selection
   }, []);
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent) => {
       if (isDragging) {
         const newWidth = window.innerWidth - e.clientX;
-        setSidebarWidth(Math.max(200, Math.min(newWidth, 600))); // Limit width between 200px and 600px
+        const maxWidth = getMaxWidth();
+        setSidebarWidth(Math.max(200, Math.min(newWidth, maxWidth)));
       }
     },
-    [isDragging]
+    [isDragging, getMaxWidth]
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isDragging) {
-      window.addEventListener("mousemove", handleMouseMove as any);
-      window.addEventListener("mouseup", handleMouseUp);
+      window.addEventListener('mousemove', handleMouseMove as any);
+      window.addEventListener('mouseup', handleMouseUp);
     }
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove as any);
-      window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener('mousemove', handleMouseMove as any);
+      window.removeEventListener('mouseup', handleMouseUp);
     };
   }, [isDragging, handleMouseMove, handleMouseUp]);
 
   return (
     <div className="flex h-screen bg-gray-100" onMouseMove={handleMouseMove}>
-      {/* Navigation Sidebar */}
-      {/* <aside className="w-64 bg-white shadow-md">
-        <nav className="mt-6">
-          <a
-            className="flex items-center px-4 py-2 text-gray-700 bg-gray-200"
-            href="#"
-          >
-            <LayoutDashboard className="mr-3 h-5 w-5" />
-            Dashboard
-          </a>
-          <a
-            className="flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200"
-            href="#"
-          >
-            <CalendarIcon className="mr-3 h-5 w-5" />
-            Sessions
-          </a>
-          <a
-            className="flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200"
-            href="#"
-          >
-            <DollarSign className="mr-3 h-5 w-5" />
-            Earnings
-          </a>
-          <a
-            className="flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200"
-            href="#"
-          >
-            <UserCircle className="mr-3 h-5 w-5" />
-            Profile
-          </a>
-          <a
-            className="flex items-center px-4 py-2 mt-2 text-gray-600 hover:bg-gray-200"
-            href="#"
-          >
-            <MessageSquare className="mr-3 h-5 w-5" />
-            Messages
-          </a>
-        </nav>
-      </aside> */}
 
       {/* Main Content */}
       <main className="flex-1 overflow-y-auto" style={{ width: `calc(100% - ${sidebarWidth}px)` }}>
@@ -292,12 +281,16 @@ export default function FacilitatorDashboard() {
 
       {/* Resizable divider */}
       <div
-        className="w-1 bg-gray-200 cursor-ew-resize"
+        className="w-1 bg-gray-200 cursor-ew-resize hover:bg-gray-300 transition-colors"
         onMouseDown={handleMouseDown}
+        style={{ touchAction: 'none' }} // Prevents scrolling on touch devices
       />
 
       {/* Right Sidebar */}
-      <aside className="w-64 bg-white shadow-md" style={{ width: `${sidebarWidth}px` }}>
+      <aside
+        className="bg-white shadow-md overflow-hidden"
+        style={{ width: `${sidebarWidth}px`, transition: isDragging ? 'none' : 'width 0.3s ease' }}
+      >
         <div className="p-4">
           <h3 className="font-semibold text-gray-800">Notifications</h3>
           <ScrollArea className="h-[300px] mt-2">
