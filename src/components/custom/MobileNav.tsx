@@ -18,7 +18,6 @@ import Link from "next/link";
 import { useState } from "react";
 
 const menuItemsS = [
-  { icon: Newspaper, label: "Dashboard", href: "/" },
   { icon: BadgePlus, label: "Browse", href: "/browse" },
   { icon: CalendarCheck, label: "Upcomings", href: "/schedule" },
   { icon: AlignCenterHorizontal, label: "Resources", href: "/" },

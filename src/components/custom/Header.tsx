@@ -7,7 +7,6 @@ import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
 import { useRole } from "@/context/RoleProvider";
 
 const menuItemsS = [
-  { label: "Dashboard", href: "/" },
   { label: "Browse", href: "/browse" },
   { label: "Upcomings", href: "/schedule" },
   { label: "Resources", href: "/" },
