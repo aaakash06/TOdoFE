@@ -152,9 +152,7 @@ export default function StudentBrowsingPage() {
       {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between">
-          <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% max-sm:text-lg">
-            Find a Facilitator
-          </h1>
+          <h1 className="text-xl font-bold ">Find a Facilitator</h1>
           <div className="flex items-center mt-4 w-full md:mt-0 md:w-auto">
             <div className="relative flex-grow mr-4">
               <Input

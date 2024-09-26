@@ -8,8 +8,8 @@ import { useRole } from "@/context/RoleProvider";
 
 const menuItemsS = [
   { label: "Dashboard", href: "/" },
-  { label: "Browse", href: "/" },
-  { label: "Upcomings", href: "/" },
+  { label: "Browse", href: "/browse" },
+  { label: "Upcomings", href: "/schedule" },
   { label: "Resources", href: "/" },
 ];
 
@@ -42,7 +42,7 @@ const Header = () => {
                   {item.label}
                 </Link>
               ))
-            : menuItemsF.map((item, index) => (
+            : menuItemsS.map((item, index) => (
                 <Link
                   key={index}
                   href={item.href}
