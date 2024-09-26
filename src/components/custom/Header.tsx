@@ -17,7 +17,7 @@ const Header = () => {
   const { user } = useUser();
   const { userRole: role } = useRole();
   const menuItemsF = [
-    { label: "Dashboard", href: "/" },
+    { label: "Dashboard", href: "/dashboard" },
     { label: "Profile", href: `/profile-facilitator/${user?.id}` },
     { label: "Schedule", href: "/schedule" },
   ];
