@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
@@ -52,9 +52,41 @@ const earningsData = [
 
 export default function FacilitatorDashboard() {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
+  const [sidebarWidth, setSidebarWidth] = useState(256); // Initial width in pixels
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handleMouseDown = useCallback(() => {
+    setIsDragging(true);
+  }, []);
+
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false);
+  }, []);
+
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent) => {
+      if (isDragging) {
+        const newWidth = window.innerWidth - e.clientX;
+        setSidebarWidth(Math.max(200, Math.min(newWidth, 600))); // Limit width between 200px and 600px
+      }
+    },
+    [isDragging]
+  );
+
+  React.useEffect(() => {
+    if (isDragging) {
+      window.addEventListener("mousemove", handleMouseMove as any);
+      window.addEventListener("mouseup", handleMouseUp);
+    }
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove as any);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isDragging, handleMouseMove, handleMouseUp]);
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-100" onMouseMove={handleMouseMove}>
       {/* Navigation Sidebar */}
       {/* <aside className="w-64 bg-white shadow-md">
         <nav className="mt-6">
@@ -97,7 +129,7 @@ export default function FacilitatorDashboard() {
       </aside> */}
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto" style={{ width: `calc(100% - ${sidebarWidth}px)` }}>
         <div className="container mx-auto px-6 py-8">
           <h1 className="text-3xl font-semibold text-gray-800">Dashboard</h1>
 
@@ -113,7 +145,7 @@ export default function FacilitatorDashboard() {
               <CardContent>
                 <div className="text-2xl font-bold">245</div>
                 <p className="text-xs text-muted-foreground">
-                  +20% from last month
+                  <span className="text-green-500">+20%</span> from last month
                 </p>
               </CardContent>
             </Card>
@@ -127,7 +159,7 @@ export default function FacilitatorDashboard() {
               <CardContent>
                 <div className="text-2xl font-bold">$12,450</div>
                 <p className="text-xs text-muted-foreground">
-                  +15% from last month
+                  <span className="text-green-500">+15%</span> from last month
                 </p>
               </CardContent>
             </Card>
@@ -148,21 +180,23 @@ export default function FacilitatorDashboard() {
           </div>
 
           {/* Calendar and Upcoming Sessions */}
-          <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-2">
-            <Card>
+          <div className="mt-8 flex flex-col lg:flex-row xl:space-x-4 gap-4 xl:gap-0">
+            <Card className="w-auto lg:w-fit xl:w-1/3">
               <CardHeader>
                 <CardTitle>Calendar</CardTitle>
               </CardHeader>
               <CardContent>
-                <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={setDate}
-                  className="rounded-md border"
-                />
+                <div className="max-w-[250px] w-full">
+                  <Calendar
+                    mode="single"
+                    selected={date}
+                    onSelect={setDate}
+                    className="rounded-md border"
+                  />
+                </div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="flex-1 xl:w-2/3">
               <CardHeader>
                 <CardTitle>Upcoming Sessions</CardTitle>
               </CardHeader>
@@ -256,8 +290,14 @@ export default function FacilitatorDashboard() {
         </div>
       </main>
 
+      {/* Resizable divider */}
+      <div
+        className="w-1 bg-gray-200 cursor-ew-resize"
+        onMouseDown={handleMouseDown}
+      />
+
       {/* Right Sidebar */}
-      <aside className="w-64 bg-white shadow-md">
+      <aside className="w-64 bg-white shadow-md" style={{ width: `${sidebarWidth}px` }}>
         <div className="p-4">
           <h3 className="font-semibold text-gray-800">Notifications</h3>
           <ScrollArea className="h-[300px] mt-2">
