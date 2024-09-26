@@ -56,7 +56,7 @@ export default function FacilitatorDashboard() {
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Navigation Sidebar */}
-      <aside className="w-64 bg-white shadow-md">
+      {/* <aside className="w-64 bg-white shadow-md">
         <nav className="mt-6">
           <a
             className="flex items-center px-4 py-2 text-gray-700 bg-gray-200"
@@ -94,7 +94,7 @@ export default function FacilitatorDashboard() {
             Messages
           </a>
         </nav>
-      </aside>
+      </aside> */}
 
       {/* Main Content */}
       <main className="flex-1 overflow-y-auto">
