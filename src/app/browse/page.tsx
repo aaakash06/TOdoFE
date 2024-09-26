@@ -70,6 +70,62 @@ const facilitators = [
     experience: "Expert",
   },
   {
+    id: 2,
+    name: "John Smith",
+    image: "https://i.pravatar.cc/150?img=2",
+    bio: "Career counselor with 10+ years of experience in tech industry placement.",
+    skills: ["Career Counseling", "Resume Writing", "Interview Preparation"],
+    rating: 4.7,
+    reviews: 85,
+    hourlyRate: 60,
+    availability: "Available in 2 hours",
+    languages: ["English", "Spanish"],
+    education: "M.A. in Career Counseling, Columbia University",
+    experience: "Expert",
+  },
+  {
+    id: 2,
+    name: "John Smith",
+    image: "https://i.pravatar.cc/150?img=2",
+    bio: "Career counselor with 10+ years of experience in tech industry placement.",
+    skills: ["Career Counseling", "Resume Writing", "Interview Preparation"],
+    rating: 4.7,
+    reviews: 85,
+    hourlyRate: 60,
+    availability: "Available in 2 hours",
+    languages: ["English", "Spanish"],
+    education: "M.A. in Career Counseling, Columbia University",
+    experience: "Expert",
+  },
+  {
+    id: 2,
+    name: "John Smith",
+    image: "https://i.pravatar.cc/150?img=2",
+    bio: "Career counselor with 10+ years of experience in tech industry placement.",
+    skills: ["Career Counseling", "Resume Writing", "Interview Preparation"],
+    rating: 4.7,
+    reviews: 85,
+    hourlyRate: 60,
+    availability: "Available in 2 hours",
+    languages: ["English", "Spanish"],
+    education: "M.A. in Career Counseling, Columbia University",
+    experience: "Expert",
+  },
+  {
+    id: 2,
+    name: "John Smith",
+    image: "https://i.pravatar.cc/150?img=2",
+    bio: "Career counselor with 10+ years of experience in tech industry placement.",
+    skills: ["Career Counseling", "Resume Writing", "Interview Preparation"],
+    rating: 4.7,
+    reviews: 85,
+    hourlyRate: 60,
+    availability: "Available in 2 hours",
+    languages: ["English", "Spanish"],
+    education: "M.A. in Career Counseling, Columbia University",
+    experience: "Expert",
+  },
+  {
     id: 3,
     name: "Sarah Johnson",
     image: "https://i.pravatar.cc/150?img=3",
@@ -92,11 +148,11 @@ export default function StudentBrowsingPage() {
   const [selectedFacilitator, setSelectedFacilitator] = React.useState(null);
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
+    <div className="flex flex-col min-h-screen bg-gray-100 ">
       {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-800">
+          <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% max-sm:text-lg">
             Find a Facilitator
           </h1>
           <div className="flex items-center mt-4 w-full md:mt-0 md:w-auto">
@@ -126,7 +182,7 @@ export default function StudentBrowsingPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-grow container mx-auto px-4 py-8">
+      <main className="flex-grow lg:container mx-auto px-4  pt-5 pb-1 ">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Sidebar */}
           <aside className="w-full md:w-64 bg-white p-6 rounded-lg shadow-sm">
@@ -186,8 +242,8 @@ export default function StudentBrowsingPage() {
           </aside>
 
           {/* Facilitator Grid */}
-          <div className="flex-grow">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex-grow  h-[calc(100vh-6rem)]">
+            <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-6  max-h-full overflow-y-scroll">
               {facilitators.map((facilitator) => (
                 <Card key={facilitator.id} className="overflow-hidden">
                   <CardHeader className="pb-0">
