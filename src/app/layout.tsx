@@ -36,7 +36,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body
-          className={`${inter.variable} ${spaceGrotesk.variable}  ${poppins.variable} antialiased`}
+          className={`${inter.variable} ${spaceGrotesk.variable}  ${poppins.variable} antialiased `}
         >
           <NextTopLoader></NextTopLoader>
           {children}
